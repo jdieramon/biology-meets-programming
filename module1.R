@@ -31,11 +31,11 @@ patternCount(text, pattern)
 
 
 # Now, we will set Text equal to the oriC of Vibrio cholerae and Pattern equal to "TGATCA"
-text = "ATCAATGATCAACGTAAGCTTCTAAGCATGATCAAGGTGCTCACACAGTTTATCCACAACCTGAGTGGATGACATCAAGATAGGTCGTTGTATCTCCTTCCTCTCGTACTCTCATGACCACGGAAAGATGATCAAGAGAGGATGATTTCTTGGCCATATCGCAATGAATACTTGTGACTTGTGCTTCCAATTGACATCTTCAGCGCCATATTGCGCTGGCCAAGGTGACGGAGCGGGATTACGAAAGCATGATCATGGCTGTTGTTCTGTTTATCTTGTTTTGACTGAGACTTGTTAGGATAGACGGTTTTTCATCACTGACTAGCCAAAGCCTTACTCTGCCTGACATCGACCGTAAATTGATAATGAATTTACATGCTTCCGCGACGATTTACCTCTTGATCATCGATCCGATTGAAGATCTTCAATTGTTAATTCTCTTGCCTCGACTCATAGCCATGATGAGCTCTTGATCATGTTTCCTTAACCCTCTATTTTTTACGGAAGAATGATCAAGCTGCTGCTCTTGATCATCGTTTC"
+ori = "ATCAATGATCAACGTAAGCTTCTAAGCATGATCAAGGTGCTCACACAGTTTATCCACAACCTGAGTGGATGACATCAAGATAGGTCGTTGTATCTCCTTCCTCTCGTACTCTCATGACCACGGAAAGATGATCAAGAGAGGATGATTTCTTGGCCATATCGCAATGAATACTTGTGACTTGTGCTTCCAATTGACATCTTCAGCGCCATATTGCGCTGGCCAAGGTGACGGAGCGGGATTACGAAAGCATGATCATGGCTGTTGTTCTGTTTATCTTGTTTTGACTGAGACTTGTTAGGATAGACGGTTTTTCATCACTGACTAGCCAAAGCCTTACTCTGCCTGACATCGACCGTAAATTGATAATGAATTTACATGCTTCCGCGACGATTTACCTCTTGATCATCGATCCGATTGAAGATCTTCAATTGTTAATTCTCTTGCCTCGACTCATAGCCATGATGAGCTCTTGATCATGTTTCCTTAACCCTCTATTTTTTACGGAAGAATGATCAAGCTGCTGCTCTTGATCATCGTTTC"
 pattern = "TGATCA"
 
 # Finally, let's print the result of calling PatternCount on Text and Pattern.
-patternCount(text, pattern)
+patternCount(ori, pattern)
 
 
 # The Frequent Words Problem : Find the most frequent k-mers in a string.
@@ -43,10 +43,55 @@ patternCount(text, pattern)
 library(Biostrings)
 ## Get the less and most represented 6-mers:
 text = "GATCCAGATCCCCATAC"
-f6 <- oligonucleotideFrequency(DNAString(text), 2)
-head(sort(f6, decreasing = T))
+k <- 2
+f2 <- oligonucleotideFrequency(DNAString(text), k)
+head(sort(f2, decreasing = T))
 
 
 text = "ACAACTATGCATACTATCGGGAACTATCCT"
-f5 <- oligonucleotideFrequency(DNAString(text), 5)
+k <- 5
+f5 <- oligonucleotideFrequency(DNAString(text), k)
 head(sort(f5, decreasing = T))
+
+
+
+
+frequencyMap <- function(text, k) {
+  
+  count = 0
+  s = 1
+  l = k
+  pattern <- c()
+  
+  while (l <= str_length(text)) {
+    pattern <- c(pattern, str_sub(text, s, l))
+    count = count + 1
+    s = s + 1
+    l = l + 1
+  }
+  
+  sort(table(pattern), decreasing = T)
+  
+}
+  
+text <- 'CGATATATCCATAG'
+k <- 3
+frequencyMap(text, k)
+
+
+frequentWords <- function(text, k) {
+  fm <- frequencyMap(text, k)
+  fm[which(fm == max(fm))]
+  
+}
+
+text <- "CGATATATCGAT"
+k <- 3
+frequentWords(text, k)
+
+
+text <- 'ACGTTGCATGTCGCATGATGCATGAGAGCT'
+k <- 4
+frequentWords(text, k)
+
+frequentWords(ori, 10)
