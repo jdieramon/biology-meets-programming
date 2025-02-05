@@ -95,3 +95,23 @@ k <- 4
 frequentWords(text, k)
 
 frequentWords(ori, 10)
+
+
+
+patternMatching <- function(text, pattern) {
+  
+  match = c()
+  s = 1
+  l = str_length(pattern)
+  
+  
+  while (l <= str_length(text)) {
+    if(str_sub(text, s, l) == pattern) {
+      match = c(match, s) }
+    s = s + 1
+    l = l + 1
+  }
+  match }
+text = "GATATATGCATATACTT"
+pattern = "ATAT"
+patternMatching(text, pattern)
