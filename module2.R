@@ -41,15 +41,26 @@ skew_diagram(text, pattern)
 
 
 
+
+
+skew_array <- function(genome) {
+  base = strsplit(genome, "")[[1]]
+  
+  count = vector(mode = "numeric", length = nchar(genome))
+  
+  
+  for (b in seq_along(base)) {
+    if (base[b] == "C") {
+      count[b] = -1
+    }
+    if (base[b] == "G") {
+      count[b] = 1
+    }
+    if (base[b] %in% c("A", "T")) {
+      count[b] = 0
+    }
+  }
 genome = "CATGGGCATCGGCCATACGCC"
-
-count = 0
-s = 1
-l = str_length(pattern)
-
-while (l <= str_length(text)) {
-  if(str_sub(text, s, l) == pattern) {
-    count = count + 1 }
-
+skew_array(genome)  
 
 
