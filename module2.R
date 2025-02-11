@@ -63,4 +63,82 @@ skew_array <- function(genome) {
 genome = "CATGGGCATCGGCCATACGCC"
 skew_array(genome)  
 
+# Hamming Distance Problem -------------------------------------
+
+#Compute the total number of mismatches between strings p and q
+
+hammingDistance <- function(p,q) {
+  
+  p = strsplit(p, "")[[1]]
+  q = strsplit(q, "")[[1]]
+  sum(p != q)
+}
+
+
+p = "GGGCCGTTGGT" 
+q = "GGACCGTTGAC"
+hammingDistance(p,q)
+
+
+# Approximate Pattern Matching Problem ---------------------------
+
+# Find all approximate occurrences of a pattern in a string.
+
+
+
+library(stringr)
+
+
+approximatePatternMatching <- function(text, patter, d) {
+    
+  coord = c()
+  s = 1
+  l = str_length(pattern)
+  
+  
+  while (l <= str_length(text)) {
+    if(hammingDistance(str_sub(text, s, l),pattern) <= d) {
+      coord = c(coord, s)  
+    }
+    s = s + 1
+    l = l + 1 
+  }
+  
+  coord
+}
+
+
+pattern = 'ATTCTGGA'
+text = 'CGCCCGAATCCAGAACGCATTCCCATATTTCGGGACCACTGGCCTCCACGGTACGGACGTCAATCAAAT' 
+d = 3
+
+approximatePatternMatching(text, pattern, d)
+
+
+
+
+pattern = 'GAGG'
+text = 'TTTAGAGCCTTCAGAGG'
+d = 2
+
+approximatepatternCount <- function(text, pattern, d) { 
+  
+  count = 0
+  s = 1
+  l = str_length(pattern)
+  
+  while (l <= str_length(text)) { 
+    
+    if(hammingDistance(str_sub(text, s, l), pattern) <= d){
+      count = count+1
+    }
+    s = s + 1
+    l = l + 1
+    
+  }
+  count  
+}
+
+approximatepatternCount(text, pattern, d)
+
 
