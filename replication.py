@@ -104,3 +104,32 @@ def SkewArray(Genome):
 # Prueba de SkewArray
 Genome = "CATGGGCATCGGCCATACGCC"
 SkewArray(Genome)
+
+
+def SkewArray(Genome):
+    skew = [0]  # output variable
+    
+    for base in Genome:
+        if base == "C":
+            skew.append(skew[-1] - 1)
+        elif base == "G":
+            skew.append(skew[-1] + 1)
+        else:
+            skew.append(skew[-1])
+    
+    return skew
+
+def MinimumSkew(Genome):
+    positions = []  # output variable
+    skew = SkewArray(Genome)
+    min_skew = min(skew)
+    
+    for i, val in enumerate(skew):
+        if val == min_skew:
+            positions.append(i)
+    
+    return positions
+
+# Example usage:
+Genome = "TAAAGACTGCCGAGAGGCCAACACGAGTGCTAGAACGAGGGGCGTAAACGCGGGTCCGAT"
+print(MinimumSkew(Genome))  # Output: [11, 24]
