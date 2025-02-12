@@ -23,14 +23,14 @@ text = "AAAAGGGG"
 fasterSymbolArray(text, pattern)
 
 
-skew_diagram <- function(text, pattern) {
-  
-  plot(unlist(fasterSymbolArray(text, pattern)), 
-       ylab = paste("count of", pattern, "in half-genome starting at given position"), 
-       xlab = "genome position")
-}
+#skew_diagram <- function(text, pattern) {
+#  
+#  plot(unlist(fasterSymbolArray(text, pattern)), 
+#       ylab = paste("count of", pattern, "in half-genome starting at given position"), 
+#       xlab = "genome position")
+#}
 
-skew_diagram(text, pattern)
+#skew_diagram(text, pattern)
 
 
 #url <- "https://bioinformaticsalgorithms.com/data/realdatasets/Replication/E_coli.txt"
@@ -60,8 +60,35 @@ skew_array <- function(genome) {
       count[b] = 0
     }
   }
+
+  count = c(0, count)
+  cumsum(count)
+}
+  
 genome = "CATGGGCATCGGCCATACGCC"
 skew_array(genome)  
+
+
+skew_diagram <- function(genome) {
+  plot(skew_array(genome), type = "l", 
+       xlab = "position", ylab = "skew")
+}
+
+skew_diagram(genome)
+
+
+genome = "TAAAGACTGCCGAGAGGCCAACACGAGTGCTAGAACGAGGGGCGTAAACGCGGGTCCGAT"
+
+minimum_skew <- function(genome) {
+  sk_arr = skew_array(genome)
+  which(sk_arr == min(sk_arr))
+}
+
+minimum_skew(genome)
+
+
+
+
 
 # Hamming Distance Problem -------------------------------------
 
